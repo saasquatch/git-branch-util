@@ -57,7 +57,7 @@ def git_merge(from, to)
   # just compare the number of commits between before and after the merge (number of lines on a log --online between before and after version)
   pexec "git checkout #{to}"
   version = `git rev-parse #{to}`.strip
-  output = `git merge #{from} 2>&1`
+  output = `git merge --ff-only #{from} 2>&1`
   count = git_count_commits version, to
   if output.include? "CONFLICT"
     puts "merge #{from} => #{to} [#{count} commits: CONFLICT!!]"
