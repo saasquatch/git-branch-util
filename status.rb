@@ -1,7 +1,8 @@
 #!/usr/bin/ruby
 
 $:.unshift(File.expand_path(File.dirname(__FILE__)))
-require 'synchronize'
+pexec "git fetch --all"
+pexec "git remote prune origin"
 
 def format_branch(branch, brlist, text)
   if brlist.empty?
