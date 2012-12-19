@@ -4,6 +4,10 @@ git-kanban-helper
 ![Screenshot](http://yupiq.github.com/git-branch-util/images/Screenshot.png)
 
 
+## Usage
+The simplest usage is to simply run `all.rb`, check that the status output at the end seems correct, then `git push --all` to push the changes.
+This should be done in an automatic trigger any time a git commit is made.
+
 ## Goals
 * Allow multiple features to proceed through development in parallel
 * Stage any features which are ready for *beta* release to be built from a *staging* branch
@@ -34,6 +38,3 @@ The tools in this repository provide functionality to support the process outlin
 * synchronize.rb: This is automatically run by any of the other scripts and synchronizes the local repository state with that of the remote repository (fetching and merging changes, and purging any defunct local branches).
 * all.rb: Runs in order *synchronize*, *merge-master-out*, *status*
 
-## Usage
-The simplest usage is to simply run *all.rb*, check that the status output at the end seems correct, then *git push --all* to push the changes.
-This should be done in an automatic trigger any time a git commit is made.
