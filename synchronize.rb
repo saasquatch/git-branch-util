@@ -19,7 +19,9 @@ remote_br.each do |branch|
   if local_br.include? branch
     #puts "Update #{branch}"
     pexec "git checkout #{branch}"
-    pexec "git merge origin/#{branch}"
+    # --ff  = no merge message on fast forward
+    # --ff-only = don't attempt complex merges (only allows fast-forward)
+    pexec "git merge --ff --ff-only origin/#{branch}"
   else
     #puts "Checkout #{branch}"
     pexec "git checkout -t origin/#{branch}"
