@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Git-branch-util : Makes integrating feature branches into &quot;staging&quot; and &quot;master&quot; branches easy" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Git-branch-util</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/yupiq/git-branch-util">View on GitHub</a>
+
+          <h1 id="project_title">Git-branch-util</h1>
+          <h2 id="project_tagline">Makes integrating feature branches into &quot;staging&quot; and &quot;master&quot; branches easy</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/yupiq/git-branch-util/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/yupiq/git-branch-util/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>git-branch-util</h1>
+
+<h2>Goals</h2>
+
+<ul>
+<li>Allow multiple features to proceed through development in parallel</li>
+<li>Stage any features which are ready for <em>beta</em> release to be built from a <em>staging</em> branch</li>
+<li>Allow any staged features which are ready for <em>prod</em> release to be released independently of each other
+
+<ul>
+<li>
+<em>staging</em> cannot simply be merged to prod, otherwise all staged features would be blocked by any single broken staged feature.</li>
+</ul>
+</li>
+</ul><h2>Git Structure</h2>
+
+<ul>
+<li>master: The 'production' released code</li>
+<li>staging: The 'beta' released code for the staging server</li>
+<li>feature-####: Unique branch for each feature (tightly coupled to task tracking issue)</li>
+</ul><p><em>Note: master contains a subset of staging</em></p>
+
+<h2>Process</h2>
+
+<p>The actions which a human needs to take in this process are as follows:</p>
+
+<ul>
+<li>A new feature branch is branched from master. Branching from master (rather than staging) means that this branch could be merged back onto <em>staging</em>, or <em>master</em> seamlessly without requiring cherry-picking of specific commits. Leakage of non-production-ready code is blocked by this.</li>
+<li>Feature branches which reach a staging-ready level can be merged to the <em>staging</em> branch and released to a beta server.</li>
+<li>Feature branches which reach a production-ready level can be merged to the <em>master</em> branch and released to production.</li>
+</ul><h2>Automated Process</h2>
+
+<p>The following part of the process should be done automatically:</p>
+
+<ul>
+<li>Any time a commit is made to <em>master</em>, it should be merged onto every other branch. This ensures that branches are up to date with any production released features and can be more safely merged into production later on.</li>
+</ul><h1>git-kanban-helper Tools</h1>
+
+<p>The tools in this repository provide functionality to support the process outlined above.</p>
+
+<ul>
+<li>merge-master-out.rb: Performs the second task under <em>Automated Process</em> by merging <em>master</em> out to all branches</li>
+<li>status.rb: Reports on the current merge state of all feature branches. This indicates for each branch whether it is merged into any of <em>master</em>, or <em>staging</em>. Also reports on the current commit state of all branches (how many commits ahead or behind each branch is).</li>
+<li>synchronize.rb: This is automatically run by any of the other scripts and synchronizes the local repository state with that of the remote repository (fetching and merging changes, and purging any defunct local branches).</li>
+<li>all.rb: Runs in order <em>synchronize</em>, <em>merge-master-out</em>, <em>status</em>
+</li>
+</ul><h2>Usage</h2>
+
+<p>The simplest usage is to simply run <em>all.rb</em>, check that the status output at the end seems correct, then <em>git push --all</em> to push the changes.
+This should be done in an automatic trigger any time a git commit is made.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Git-branch-util maintained by <a href="https://github.com/yupiq">yupiq</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
