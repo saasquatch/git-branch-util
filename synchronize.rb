@@ -4,9 +4,11 @@ $:.unshift(File.expand_path(File.dirname(__FILE__)))
 require 'shared'
 
 if git_state().length > 0
-  puts "\nERROR\n\n"
-  puts "There are unmerged changes in your working copy. Commit or stash them before running the git helper scripts\n\n"
-  puts "You can use 'git clean -f' if you're confident your local copy is just junk\n\n"
+  puts "\nERROR ===== There are unmerged changes in your working copy. Commit or stash them before running the git helper scripts\n\n"
+  puts "==== LOCAL CHANGES ====\n\n"
+  puts git_state()
+  puts "\n\n"
+  puts "You can use 'git clean -f && git reset --hard' if you're confident your local copy is just junk\n\n"
   abort("Script stopped");
 end
 
