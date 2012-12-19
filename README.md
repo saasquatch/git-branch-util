@@ -1,6 +1,9 @@
 git-kanban-helper
 =================
 
+![Screenshot](http://yupiq.github.com/git-branch-util/images/Screenshot.png)
+
+
 ## Goals
 * Allow multiple features to proceed through development in parallel
 * Stage any features which are ready for *beta* release to be built from a *staging* branch
