@@ -1,5 +1,5 @@
 
-CONST_BRANCHES = ["master","staging","dev"]
+CONST_BRANCHES = ["master","staging"]
 
 def show_heading(msg)
   puts "\n**** #{msg} ****"  
@@ -41,6 +41,11 @@ end
 def git_count_commits(from, to)
   `git log --oneline #{from}..#{to}`.split("\n").length
 end
+
+def git_state()
+  `git status --porcelain`.strip.split("\n")
+end
+
 
 def git_changes(branch)
   pexec "git checkout #{branch}"

@@ -14,14 +14,13 @@ end
 show_heading "Staged Merge Status"
 inmaster = get_merged('master')
 instaging = get_merged('staging')
-indev = get_merged('dev')
-ordered = inmaster | instaging | indev | remote_branches
+
+ordered = inmaster | instaging | remote_branches
 $branchLen = ordered.group_by(&:size).max.last[0].length
 ordered.each do |branch|
   master = format_branch(branch, inmaster, 'master')
   staging = format_branch(branch, instaging, 'staging')
-  dev = format_branch(branch, indev, 'dev')
-  puts "%-#{$branchLen}s  %s  %s  %s" % [branch, master, staging, dev]
+  puts "%-#{$branchLen}s  %s  %s" % [branch, master, staging]
 end
 
 def __status(branch)
@@ -43,7 +42,6 @@ end
 
 show_heading "Local Branch Status"
 __status "master"
-__status "dev"
 __status "staging"
 
 local_branches.each do |branch|
