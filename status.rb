@@ -1,6 +1,9 @@
 #!/usr/bin/ruby
 
 $:.unshift(File.expand_path(File.dirname(__FILE__)))
+require 'shared'
+
+# Updates so we have latest info from origin
 pexec "git fetch --all"
 pexec "git remote prune origin"
 
